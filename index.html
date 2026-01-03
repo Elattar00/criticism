@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criticism</title>
     
     <!-- Tailwind CSS -->
@@ -37,17 +37,13 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        /* Prevent horizontal scroll globally */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
+        // Added to enable rendering in the browser
         import { createRoot } from 'react-dom/client';
 
         // --- START OF USER CODE ---
@@ -70,7 +66,7 @@ const Term = ({ word, def }) => {
         {word}
       </span>
       {showDef && (
-        <span className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-72 max-w-[85vw] p-4 bg-[#1e293b] text-white text-sm font-medium rounded-xl shadow-2xl text-center pointer-events-none block animate-in fade-in slide-in-from-bottom-2 duration-200 leading-relaxed tracking-wide">
+        <span className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-72 p-4 bg-[#1e293b] text-white text-sm font-medium rounded-xl shadow-2xl text-center pointer-events-none block animate-in fade-in slide-in-from-bottom-2 duration-200 leading-relaxed tracking-wide">
           {def}
           <span className="absolute top-full left-1/2 transform -translate-x-1/2 border-8 border-transparent border-t-[#1e293b] block"></span>
         </span>
@@ -93,23 +89,23 @@ const StudyCard = ({ title, icon: Icon, colorClass, children, number }) => {
   const t = themes[colorClass] || themes.slate;
 
   return (
-    <div className={`group relative bg-white rounded-[2rem] border shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.1)] mb-16 overflow-hidden ${t.border}`}>
-      <div className="absolute top-4 right-6 md:top-6 md:right-8 text-6xl md:text-8xl font-black text-slate-100 opacity-60 select-none pointer-events-none tracking-tighter">
+    <div className={`group relative bg-white rounded-[2rem] border shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.1)] mb-16 ${t.border}`}>
+      <div className="absolute top-6 right-8 text-8xl font-black text-slate-100 opacity-60 select-none pointer-events-none tracking-tighter">
         {number}
       </div>
       
-      <div className="relative p-6 md:p-10">
-        <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8 relative">
-          <div className={`p-3 md:p-4 rounded-2xl ${t.badge} shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 shrink-0`}>
-            <Icon size={24} className="md:w-8 md:h-8" strokeWidth={1.5} />
+      <div className="relative p-8 md:p-10">
+        <div className="flex items-center gap-6 mb-8 relative">
+          <div className={`p-4 rounded-2xl ${t.badge} shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+            <Icon size={32} strokeWidth={1.5} />
           </div>
           <div>
             <div className={`h-1 w-12 ${t.accent} rounded-full mb-2 opacity-50`}></div>
-            <h2 className={`text-xl md:text-3xl font-bold tracking-tight ${t.title}`}>{title}</h2>
+            <h2 className={`text-2xl md:text-3xl font-bold tracking-tight ${t.title}`}>{title}</h2>
           </div>
         </div>
         
-        <div className="text-slate-600 text-base md:text-lg leading-loose font-normal">
+        <div className="text-slate-600 text-lg leading-loose font-normal">
           {children}
         </div>
       </div>
@@ -129,14 +125,14 @@ const HighlightBox = ({ title, children, color = "indigo" }) => {
   };
 
   return (
-    <div className={`my-8 p-5 md:p-7 rounded-2xl border ${styles[color]} relative overflow-hidden backdrop-blur-sm`}>
+    <div className={`my-8 p-7 rounded-2xl border ${styles[color]} relative overflow-hidden backdrop-blur-sm`}>
       {title && (
         <div className="flex items-center gap-2 mb-4">
           <div className={`w-2 h-2 rounded-full ${color === 'indigo' ? 'bg-indigo-500' : `bg-${color}-500`}`}></div>
           <h4 className="font-bold text-sm uppercase tracking-wide opacity-80">{title}</h4>
         </div>
       )}
-      <div className="leading-relaxed relative z-10 font-medium opacity-90 text-sm md:text-base">
+      <div className="leading-relaxed relative z-10 font-medium opacity-90">
         {children}
       </div>
     </div>
@@ -152,10 +148,10 @@ const EssayAnswer = ({ number, question, children }) => {
       onClick={() => setIsOpen(!isOpen)}
       className="bg-white border border-slate-200 rounded-2xl overflow-hidden cursor-pointer hover:border-[#3b82f6] transition-all duration-300 group mb-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)]"
     >
-      <div className="p-5 md:p-6 flex justify-between items-start gap-4 bg-slate-50/50 group-hover:bg-blue-50/30 transition-colors">
-        <div className="flex gap-4 md:gap-5 items-start">
-          <span className="text-[#3b82f6]/40 font-black text-2xl md:text-3xl tabular-nums leading-none -mt-1">{number}</span>
-          <h4 className="font-bold text-slate-800 text-base md:text-lg leading-tight pt-1">{question}</h4>
+      <div className="p-6 flex justify-between items-start gap-4 bg-slate-50/50 group-hover:bg-blue-50/30 transition-colors">
+        <div className="flex gap-5 items-start">
+          <span className="text-[#3b82f6]/40 font-black text-3xl tabular-nums leading-none -mt-1">{number}</span>
+          <h4 className="font-bold text-slate-800 text-lg leading-tight pt-1">{question}</h4>
         </div>
         <div className={`p-1 rounded-full shrink-0 ${isOpen ? 'bg-blue-100 text-blue-600' : 'text-slate-400'}`}>
           <ChevronDown 
@@ -170,7 +166,7 @@ const EssayAnswer = ({ number, question, children }) => {
         style={{ maxHeight: isOpen ? `${contentRef.current.scrollHeight}px` : '0px' }}
         className="transition-[max-height] duration-500 ease-in-out overflow-hidden bg-white"
       >
-        <div className="p-6 md:p-8 text-slate-600 leading-relaxed border-t border-slate-100/50 space-y-4 text-sm md:text-base">
+        <div className="p-8 text-slate-600 leading-relaxed border-t border-slate-100/50 space-y-4">
           {children}
         </div>
       </div>
@@ -197,7 +193,7 @@ const App = () => {
 
   return (
     <div 
-      className="min-h-screen font-sans text-slate-600 pb-32 overflow-x-hidden w-full"
+      className="min-h-screen font-sans text-slate-600 pb-32"
       style={{
         fontFamily: "'Inter', sans-serif",
         backgroundColor: '#f8fafc',
@@ -213,7 +209,7 @@ const App = () => {
       <div className="fixed top-0 left-0 h-1.5 bg-[#3b82f6] z-50 transition-all duration-100 ease-out" style={{ width: `${scrollProgress * 100}%` }}></div>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 md:px-6 py-4 mb-8 md:mb-12 shadow-sm">
+      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-6 py-4 mb-12 shadow-sm">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
             <div className="bg-[#1e293b] text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
@@ -225,39 +221,39 @@ const App = () => {
             </div>
           </div>
           
-          <div className="flex bg-slate-100/80 p-1.5 rounded-full shadow-inner gap-1 w-full md:w-auto justify-center md:justify-start">
+          <div className="flex bg-slate-100/80 p-1.5 rounded-full shadow-inner gap-1">
             <button 
               onClick={() => setActiveTab('part1')}
-              className={`px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'part1' ? 'bg-white text-rose-600 shadow-md ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'part1' ? 'bg-white text-rose-600 shadow-md ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
             >
-              <Flag size={14} className="shrink-0" /> <span className="hidden sm:inline">Part 1: </span>British
+              <Flag size={14} /> Part 1: British
             </button>
             <button 
               onClick={() => setActiveTab('part2')}
-              className={`px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'part2' ? 'bg-white text-blue-600 shadow-md ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'part2' ? 'bg-white text-blue-600 shadow-md ring-1 ring-black/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
             >
-              <Globe size={14} className="shrink-0" /> <span className="hidden sm:inline">Part 2: </span>American
+              <Globe size={14} /> Part 2: American
             </button>
             <button 
               onClick={() => setActiveTab('essay')}
-              className={`px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'essay' ? 'bg-[#1e293b] text-white shadow-lg' : 'text-slate-500 hover:text-slate-900'}`}
+              className={`px-5 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide transition-all duration-300 flex items-center gap-2 ${activeTab === 'essay' ? 'bg-[#1e293b] text-white shadow-lg' : 'text-slate-500 hover:text-slate-900'}`}
             >
-              <FileText size={14} className="shrink-0" /> Formalism / Q&A 
+              <FileText size={14} /> Formalism / Q&A
             </button>
           </div>
         </div>
       </nav>
 
-      <main className="max-w-3xl mx-auto px-4 md:px-6">
+      <main className="max-w-3xl mx-auto px-6">
         
         {/* PART 1: BRITISH ORIGINS */}
         {activeTab === 'part1' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6 md:space-y-8">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
             
-            <div className="text-center mb-10 md:mb-16 space-y-2">
+            <div className="text-center mb-16 space-y-2">
               <span className="text-rose-600 font-bold tracking-[0.2em] text-xs uppercase">Part One</span>
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">The British Origins</h2>
-              <p className="text-slate-500 font-medium text-base md:text-lg">From Arnold's Culture to the Cambridge School</p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The British Origins</h2>
+              <p className="text-slate-500 font-medium text-lg">From Arnold's Culture to the Cambridge School</p>
             </div>
 
             {/* 1. ORIGINS */}
@@ -303,8 +299,8 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="text-center py-4 px-6 md:px-8 bg-slate-50 rounded-full inline-block mx-auto w-full border border-slate-100">
-                <p className="font-serif italic text-slate-500 text-base md:text-lg">
+              <div className="text-center py-4 px-8 bg-slate-50 rounded-full inline-block mx-auto w-full border border-slate-100">
+                <p className="font-serif italic text-slate-500 text-lg">
                   "Culture is going to save society from anarchy."
                 </p>
               </div>
@@ -368,8 +364,8 @@ const App = () => {
                       <strong>Disinterestedness</strong> simply means:
                     </p>
                     <ul className="grid gap-2">
-                      <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div> You are <strong>not</strong> relating the text to your own feelings.</li>
-                      <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div> You are <strong>not</strong> relating it to the author's background.</li>
+                      <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div> You are NOT relating the text to your own feelings.</li>
+                      <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div> You are NOT relating it to the author's background.</li>
                       <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div> You approach it without wanting "favors".</li>
                     </ul>
                   </div>
@@ -437,12 +433,12 @@ const App = () => {
 
         {/* PART 2: AMERICAN DEVELOPMENT */}
         {activeTab === 'part2' && (
-          <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-6 md:space-y-8">
+          <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-8">
             
-            <div className="text-center mb-10 md:mb-16 space-y-2">
+            <div className="text-center mb-16 space-y-2">
               <span className="text-blue-600 font-bold tracking-[0.2em] text-xs uppercase">Part Two</span>
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">The American Development</h2>
-              <p className="text-slate-500 font-medium text-base md:text-lg">Expansion, Theory, and The Novel</p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The American Development</h2>
+              <p className="text-slate-500 font-medium text-lg">Expansion, Theory, and The Novel</p>
             </div>
 
             {/* 6. AMERICAN CONTEXT */}
@@ -811,4 +807,9 @@ export default App;
         root.render(<App />);
     </script>
 </body>
+
 </html>
+
+
+
+
